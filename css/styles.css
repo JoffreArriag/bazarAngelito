@@ -1,0 +1,22 @@
+
+        /* Fuentes personalizadas */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos para el menú desplegable */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .submenu.active {
+            max-height: 200px; /* Ajusta esto según el número de submenús */
+        }
+        /* Estilos para ocultar/mostrar secciones */
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
