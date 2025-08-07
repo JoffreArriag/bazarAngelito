@@ -1,667 +1,845 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bazar Angelito</title>
-    <!-- Enlace a Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Enlace a Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bazar Angelito - Iniciar Sesión</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
 
-    <!-- Vista de Login -->
-    <div id="loginView" class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-            <div class="text-center mb-6">
-                <!-- Logo -->
-                <img src="img/logo.png" alt="Bazar Angelito logo featuring a cheerful angel holding a shopping bag, surrounded by soft blue and white colors, conveying a welcoming and friendly atmosphere. Text reads Bazar Angelito." class="mx-auto mb-4 rounded-full shadow-md">
-                <h1 class="text-3xl font-bold text-gray-800">Bienvenido a Bazar Angelito</h1>
-                <p class="text-gray-600 mt-2">Inicia sesión para continuar</p>
-            </div>
+<body class="bg-gray-100 text-gray-800">
 
-            <!-- Formulario de login -->
-            <form id="loginForm" class="space-y-6">
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Ingresa tu usuario"
-                        required
-                    >
-                </div>
+  <!-- 🔒 LOGIN -->
+  <div id="loginView" class="min-h-screen flex items-center justify-center bg-gray-100">
+    <section id="loginSection" class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+      <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Iniciar Sesión</h2>
 
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Ingresa tu contraseña"
-                        required
-                    >
-                </div>
-
-                <div id="errorMessage" class="text-red-600 text-center text-sm hidden">
-                    Usuario o contraseña incorrectos.
-                </div>
-
-                <div>
-                    <button
-                        type="submit"
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
-                    >
-                        Ingresar
-                    </button>
-                </div>
-            </form>
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label for="loginUsuario" class="block text-sm font-medium text-gray-700">Usuario</label>
+          <input type="text" id="loginUsuario" name="usuario" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
         </div>
+
+        <div>
+          <label for="loginClave" class="block text-sm font-medium text-gray-700">Contraseña</label>
+          <input type="password" id="loginClave" name="clave" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <div class="flex justify-end">
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ingresar</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- 📊 DASHBOARD -->
+  <div id="homeSection" class="hidden min-h-screen bg-gray-100">
+    <!-- HEADER / NAV SUPERIOR -->
+    <header class="bg-white shadow-md px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img id="dashboardLogo" src="img/logo.png" alt="Logo" class="w-10 h-10 object-cover rounded" />
+        <h1 class="text-xl font-bold">Bazar Angelito</h1>
+      </div>
+      <button id="logoutBtn" class="text-red-600 hover:underline font-semibold">
+        <i class="fas fa-sign-out-alt mr-1"></i>Salir
+      </button>
+    </header>
+
+    <!-- CONTENIDO GENERAL (layout con menú lateral + contenido) -->
+    <div class="flex">
+      <!-- MENÚ LATERAL -->
+      <aside class="w-64 bg-white shadow-md h-screen p-4 space-y-4">
+        <nav class="space-y-2">
+          <button data-section="homeSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">🏠 Inicio</button>
+          <button data-section="usuariosSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">👤 Usuarios</button>
+          <button data-section="clientesSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">🧑‍💼 Clientes</button>
+          <button data-section="proveedoresSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">🚚 Proveedores</button>
+          <button data-section="productosSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">📦 Productos</button>
+          <button data-section="categoriasSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">📁 Categorías</button>
+          <button data-section="comprasSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">🛒 Compras</button>
+          <button data-section="ventasSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">💰 Ventas</button>
+          <button data-section="reportesSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">📄 Reportes</button>
+          <button data-section="rolesSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">🔐 Roles</button>
+          <button data-section="permisosSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">🔑 Permisos</button>
+          <button data-section="negocioSection" class="w-full text-left px-4 py-2 rounded hover:bg-gray-100">⚙️ Negocio</button>
+        </nav>
+      </aside>
+
+      <!-- SECCIONES DINÁMICAS -->
+      <main class="flex-1 p-6 overflow-y-auto space-y-10">
+<!-- USUARIOS -->
+<section id="usuariosSection" class="content-section hidden">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">Gestión de Usuarios</h2>
+    <button id="openUserModal" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      + Crear Usuario
+    </button>
+  </div>
+
+  <div class="mb-4">
+    <input type="text" id="userSearchInput" placeholder="Buscar por cédula, nombre o correo"
+      class="w-full border px-3 py-2 rounded" />
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full border text-sm text-left">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-6 py-3">Cédula</th>
+          <th class="px-6 py-3">Nombre</th>
+          <th class="px-6 py-3">Correo</th>
+          <th class="px-6 py-3">Estado</th>
+          <th class="px-6 py-3">Fecha Registro</th>
+          <th class="px-6 py-3 text-right">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="usersTableBody" class="divide-y divide-gray-100">
+        <!-- Contenido generado por JS -->
+      </tbody>
+    </table>
+    <p id="noUsersMessage" class="text-center text-gray-500 mt-4 hidden">No hay usuarios registrados.</p>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="userModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white rounded-lg p-6 w-full max-w-lg shadow-lg relative">
+    <button id="closeUserModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">&times;</button>
+    <h3 id="userFormTitle" class="text-xl font-bold mb-4">Crear Nuevo Usuario</h3>
+    <form id="userForm" class="space-y-4">
+      <div>
+        <label for="cedula" class="block text-sm font-medium">Cédula</label>
+        <input type="text" id="cedula" required class="w-full border px-3 py-2 rounded" />
+      </div>
+      <div>
+        <label for="nombreCompleto" class="block text-sm font-medium">Nombre Completo</label>
+        <input type="text" id="nombreCompleto" required class="w-full border px-3 py-2 rounded" />
+      </div>
+      <div>
+        <label for="correoElectronico" class="block text-sm font-medium">Correo Electrónico</label>
+        <input type="email" id="correoElectronico" required class="w-full border px-3 py-2 rounded" />
+      </div>
+      <div>
+        <label for="telefono" class="block text-sm font-medium">Teléfono</label>
+        <input type="text" id="telefono" class="w-full border px-3 py-2 rounded" />
+      </div>
+      <div>
+        <label for="rol" class="block text-sm font-medium">Rol</label>
+        <select id="rol" required class="w-full border px-3 py-2 rounded">
+          <option value="">Seleccione un rol</option>
+          <option value="admin">Administrador</option>
+          <option value="empleado">Empleado</option>
+        </select>
+      </div>
+      <div>
+        <label for="usuarioEstado" class="block text-sm font-medium">Estado</label>
+        <select id="usuarioEstado" required class="w-full border px-3 py-2 rounded">
+          <option value="true">Activo</option>
+          <option value="false">Inactivo</option>
+        </select>
+      </div>
+      <div>
+        <label for="usuarioFechaRegistro" class="block text-sm font-medium">Fecha de Registro</label>
+        <input type="date" id="usuarioFechaRegistro" class="w-full border px-3 py-2 rounded" />
+      </div>
+      <div class="flex justify-end space-x-2 pt-4">
+        <button type="button" id="cancelEditButton"
+          class="hidden px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Cancelar</button>
+        <button type="submit" id="saveUserButton"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Guardar Usuario</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- CLIENTES -->
+<section id="clientesSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Clientes</h2>
+
+  <!-- Botón para abrir modal de creación -->
+  <div class="flex justify-end mb-4">
+    <button id="openClientModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+      <i class="fas fa-user-plus mr-2"></i>Nuevo Cliente
+    </button>
+  </div>
+
+  <!-- Modal para crear/editar cliente -->
+  <div id="clientModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button id="closeClientModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+      <h3 class="text-xl font-semibold text-gray-800 mb-4" id="clientFormTitle">Crear Nuevo Cliente</h3>
+      <form id="clientForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="clienteCedula" class="block text-sm font-medium text-gray-700">Cédula</label>
+          <input id="clienteCedula" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div>
+          <label for="clienteNombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input id="clienteNombre" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div>
+          <label for="clienteTelefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+          <input id="clienteTelefono" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label for="clienteDireccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+          <input id="clienteDireccion" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label for="clienteCorreo" class="block text-sm font-medium text-gray-700">Correo</label>
+          <input id="clienteCorreo" type="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label for="clienteEstado" class="block text-sm font-medium text-gray-700">Estado</label>
+          <select id="clienteEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
+        </div>
+        <div>
+          <label for="clienteFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha Registro</label>
+          <input id="clienteFechaRegistro" type="date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="md:col-span-2 flex justify-end space-x-3">
+          <button id="saveClientButton" type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Guardar</button>
+          <button id="cancelClientEditButton" type="button" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 hidden">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Clientes</h3>
+    <input id="clientSearchInput" type="text" placeholder="Buscar por cédula, nombre o correo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+  </div>
+
+  <!-- Tabla -->
+  <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Clientes</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cédula</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Correo</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Dirección</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="clientsTableBody" class="bg-white divide-y divide-gray-200">
+        <!-- Aquí se renderizan los clientes dinámicamente -->
+      </tbody>
+    </table>
+    <div id="noClientsMessage" class="text-center text-gray-500 mt-4 hidden">No hay clientes registrados.</div>
+  </div>
+</section>
+
+        
+<!-- Productos -->
+<!-- Sección de Productos (CRUD) -->
+<section id="productosSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Productos</h2>
+
+  <!-- Botón para descargar Excel -->
+  <div class="flex justify-end mb-4">
+    <button id="downloadProductsExcel" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+      <i class="fas fa-file-excel mr-2"></i>Descargar Excel
+    </button>
+  </div>
+
+  <!-- Botón para abrir modal de creación -->
+  <div class="flex justify-end mb-4">
+    <button id="openProductModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      <i class="fas fa-plus mr-2"></i>Crear Producto
+    </button>
+  </div>
+
+  <!-- Modal de creación/edición de producto -->
+  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button id="closeProductModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+      <h3 class="text-xl font-semibold text-gray-800 mb-4" id="productFormTitle">Crear Nuevo Producto</h3>
+      <form id="productForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="productoCodigo" class="block text-sm font-medium text-gray-700">Código</label>
+          <input id="productoCodigo" name="productoCodigo" type="text" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+
+        <div>
+          <label for="productoNombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input id="productoNombre" name="productoNombre" type="text" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+
+        <div>
+          <label for="productoDescripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+          <input id="productoDescripcion" name="productoDescripcion" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+
+        <div>
+          <label for="productoCategoria" class="block text-sm font-medium text-gray-700">Categoría</label>
+          <select id="productoCategoria" name="productoCategoria" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            <!-- Opciones dinámicas -->
+          </select>
+        </div>
+
+        <div>
+          <label for="productoStock" class="block text-sm font-medium text-gray-700">Stock</label>
+          <input id="productoStock" name="productoStock" type="number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+
+        <div>
+          <label for="productoPrecioCompra" class="block text-sm font-medium text-gray-700">Precio Compra</label>
+          <input id="productoPrecioCompra" name="productoPrecioCompra" type="number" step="0.01" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+
+        <div>
+          <label for="productoPrecioVenta" class="block text-sm font-medium text-gray-700">Precio Venta</label>
+          <input id="productoPrecioVenta" name="productoPrecioVenta" type="number" step="0.01" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+
+        <div>
+          <label for="productoEstado" class="block text-sm font-medium text-gray-700">Estado</label>
+          <select id="productoEstado" name="productoEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="productoFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha Registro</label>
+          <input id="productoFechaRegistro" name="productoFechaRegistro" type="date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+
+        <div class="md:col-span-2 flex justify-end space-x-3">
+          <button id="saveProductButton" type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Guardar Producto</button>
+          <button id="cancelProductEditButton" type="button" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 hidden">Cancelar Edición</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Productos</h3>
+    <input id="productSearchInput" type="text" placeholder="Buscar por código, nombre o categoría." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+  </div>
+
+  <!-- Tabla -->
+  <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Productos</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoría</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Precio Compra</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Precio Venta</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="productsTableBody" class="bg-white divide-y divide-gray-200">
+        <!-- Filas de productos por JS -->
+      </tbody>
+    </table>
+    <div id="noProductsMessage" class="text-center text-gray-500 mt-4 hidden">No hay productos registrados.</div>
+  </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section id="categoriasSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Categorías</h2>
+
+  <!-- Botón para abrir el modal -->
+  <div class="flex justify-end mb-4">
+    <button id="openCategoryModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+      <i class="fas fa-plus mr-2"></i>Nueva Categoría
+    </button>
+  </div>
+
+  <!-- Modal de creación/edición -->
+  <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button id="closeCategoryModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+      <h3 id="categoryFormTitle" class="text-xl font-semibold text-gray-800 mb-4">Crear Nueva Categoría</h3>
+      <form id="categoryForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="categoriaId" class="block text-sm font-medium text-gray-700">ID</label>
+          <input id="categoriaId" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div>
+          <label for="categoriaNombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input id="categoriaNombre" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div class="md:col-span-2">
+          <label for="categoriaDescripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+          <textarea id="categoriaDescripcion" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+        </div>
+        <div class="md:col-span-2 flex justify-end space-x-3">
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Guardar</button>
+          <button id="cancelCategoryEditButton" type="button" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 hidden">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Categorías</h3>
+    <input id="categorySearchInput" type="text" placeholder="Buscar por ID o nombre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+  </div>
+
+  <!-- Tabla de categorías -->
+  <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Categorías</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="categoriesTableBody" class="bg-white divide-y divide-gray-200">
+        <!-- Filas dinámicas -->
+      </tbody>
+    </table>
+    <div id="noCategoriesMessage" class="text-center text-gray-500 mt-4 hidden">No hay categorías registradas.</div>
+  </div>
+</section>
+
+
+<!-- CONFIGURACIÓN DEL NEGOCIO -->
+<section id="negocioSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Configuración del Negocio</h2>
+
+  <form id="businessForm" class="space-y-4 max-w-2xl">
+    <div>
+      <label for="businessName" class="block text-sm font-medium text-gray-700">Nombre del Negocio</label>
+      <input type="text" id="businessName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
     </div>
 
-    <!-- Vista del Dashboard (inicialmente oculta) -->
-    <div id="dashboardView" class="min-h-screen flex flex-col hidden">
-        <!-- Encabezado superior -->
-        <header class="bg-blue-600 text-white p-4 shadow-md flex justify-between items-center">
-            <div class="text-lg md:text-xl font-semibold">
-                ¡Bienvenido a Bazar Angelito!
-                <p class="text-sm md:text-base font-normal opacity-90">Gestiona tus productos, ventas y clientes desde aquí.</p>
-            </div>
-            <button id="logoutButton" class="text-white hover:text-blue-200 focus:outline-none flex items-center space-x-2">
-                <i class="fas fa-sign-out-alt text-xl"></i>
-                <span class="hidden md:inline">Cerrar Sesión</span>
-            </button>
-        </header>
-
-        <!-- Contenido principal con barra lateral de navegación -->
-        <div class="flex flex-1">
-            <!-- Barra de navegación lateral (menú desplegable) -->
-            <aside class="bg-gray-800 text-white w-64 p-4 shadow-lg flex-shrink-0">
-                <nav>
-                    <ul>
-                        <li class="mb-2">
-                            <a href="#" class="block px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out nav-link" data-target="homeSection">
-                                <i class="fas fa-home mr-2"></i>Inicio
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="#" class="block px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out nav-link" data-target="usersSection">
-                                <i class="fas fa-users mr-2"></i>Usuarios
-                            </a>
-                        </li>
-
-                        <!-- Menú Mantenedor -->
-                        <li class="mb-2">
-                            <button class="w-full text-left flex justify-between items-center px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out menu-toggle">
-                                <span><i class="fas fa-cogs mr-2"></i>Mantenedor</span>
-                                <i class="fas fa-chevron-down text-xs ml-2 transform transition-transform duration-300"></i>
-                            </button>
-                            <ul class="submenu pl-6 pt-1 text-sm bg-gray-700 rounded-b-md">
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-600 rounded-md nav-link" data-target="categorySection">Categoría</a></li>
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-600 rounded-md nav-link" data-target="productSection">Producto</a></li>
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-600 rounded-md nav-link" data-target="businessSection">Negocio</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Menú Ventas -->
-                        <li class="mb-2">
-                            <button class="w-full text-left flex justify-between items-center px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out menu-toggle">
-                                <span><i class="fas fa-shopping-cart mr-2"></i>Ventas</span>
-                                <i class="fas fa-chevron-down text-xs ml-2 transform transition-transform duration-300"></i>
-                            </button>
-                            <ul class="submenu pl-6 pt-1 text-sm bg-gray-700 rounded-b-md">
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-600 rounded-md nav-link" data-target="registerSaleSection">Registrar</a></li>
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-600 rounded-md nav-link" data-target="viewSaleDetailsSection">Ver Detalles Venta</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Menú Compras -->
-                        <li class="mb-2">
-                            <button class="w-full text-left flex justify-between items-center px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out menu-toggle">
-                                <span><i class="fas fa-truck mr-2"></i>Compras</span>
-                                <i class="fas fa-chevron-down text-xs ml-2 transform transition-transform duration-300"></i>
-                            </button>
-                            <ul class="submenu pl-6 pt-1 text-sm bg-gray-700 rounded-b-md">
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-600 rounded-md nav-link" data-target="registerPurchaseSection">Registrar</a></li>
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-600 rounded-md nav-link" data-target="viewPurchaseDetailsSection">Ver Detalles Compra</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="mb-2">
-                            <a href="#" class="block px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out nav-link" data-target="supplierSection">
-                                <i class="fas fa-handshake mr-2"></i>Proveedor
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="#" class="block px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out nav-link" data-target="clientSection">
-                                <i class="fas fa-user-tie mr-2"></i>Cliente
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="#" class="block px-4 py-2 rounded-md hover:bg-gray-700 transition duration-150 ease-in-out nav-link" data-target="reportsSection">
-                                <i class="fas fa-chart-bar mr-2"></i>Reportes
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
-
-            <!-- Área de contenido principal -->
-            <main class="flex-1 p-6">
-                <!-- Sección de Inicio (Home) -->
-                <section id="homeSection" class="content-section active">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Panel Principal</h2>
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <p class="text-gray-700">Selecciona una opción del menú para empezar a gestionar tu bazar.</p>
-                    </div>
-                </section>
-
-                <!-- Sección de Usuarios (CRUD) -->
-                <section id="usersSection" class="content-section">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Usuarios</h2>
-
-                    <!-- Botón para abrir modal de creación -->
-                    <div class="flex justify-end mb-4">
-                        <button id="openUserModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <i class="fas fa-plus mr-2"></i>Crear Usuario
-                        </button>
-                    </div>
-
-                    <!-- Modal de creación/edición de usuario -->
-                    <div id="userModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-                        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md relative">
-                            <button id="closeUserModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4" id="userFormTitle">Crear Nuevo Usuario</h3>
-                            <form id="userForm" class="space-y-4">
-                                <div>
-                                    <label for="cedula" class="block text-sm font-medium text-gray-700">Número de Cédula</label>
-                                    <input type="text" id="cedula" name="cedula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="nombreCompleto" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
-                                    <input type="text" id="nombreCompleto" name="nombreCompleto" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="correoElectronico" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                    <input type="email" id="correoElectronico" name="correoElectronico" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                    <input type="tel" id="telefono" name="telefono" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="rol" class="block text-sm font-medium text-gray-700">Rol</label>
-                                    <select id="rol" name="rol" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md" required>
-                                        <option value="Empleado">Empleado</option>
-                                        <option value="Administrador">Administrador</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="usuarioEstado" class="block text-sm font-medium text-gray-700">Estado</label>
-                                    <select id="usuarioEstado" name="usuarioEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                        <option value="true">Activo</option>
-                                        <option value="false">Inactivo</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="usuarioFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha Registro</label>
-                                    <input type="date" id="usuarioFechaRegistro" name="usuarioFechaRegistro" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div class="flex justify-end space-x-3">
-                                    <button type="submit" id="saveUserButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        Guardar Usuario
-                                    </button>
-                                    <button type="button" id="cancelEditButton" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 hidden">
-                                        Cancelar Edición
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Buscador de Usuarios -->
-                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Usuarios</h3>
-                        <input type="text" id="userSearchInput" placeholder="Buscar por cédula, nombre o correo..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-
-                    <!-- Tabla de Usuarios -->
-                    <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Usuarios</h3>
-                        <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cédula</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre Completo</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Correo</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody" class="bg-white divide-y divide-gray-200">
-                        <!-- Filas de usuarios por JS -->
-                    </tbody>
-                </table>
-                        <div id="noUsersMessage" class="text-center text-gray-500 mt-4 hidden">No hay usuarios registrados.</div>
-                    </div>
-                </section>
-
-                <!-- Sección de Categorías (CRUD) -->
-                <section id="categorySection" class="content-section">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Categorías</h2>
-
-                    <!-- Botón para abrir modal de creación -->
-                    <div class="flex justify-end mb-4">
-                        <button id="openCategoryModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <i class="fas fa-plus mr-2"></i>Crear Categoría
-                        </button>
-                    </div>
-
-                    <!-- Modal de creación/edición de categoría -->
-                    <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-                        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md relative">
-                            <button id="closeCategoryModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4" id="categoryFormTitle">Crear Nueva Categoría</h3>
-                            <form id="categoryForm" class="space-y-4">
-                                <div>
-                                    <label for="categoryName" class="block text-sm font-medium text-gray-700">Nombre de Categoría</label>
-                                    <input type="text" id="categoryName" name="categoryName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="categoryDescription" class="block text-sm font-medium text-gray-700">Descripción</label>
-                                    <input type="text" id="categoryDescription" name="categoryDescription" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div>
-                                    <label for="categoriaEstado" class="block text-sm font-medium text-gray-700">Estado</label>
-                                    <select id="categoriaEstado" name="categoriaEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                        <option value="true">Activo</option>
-                                        <option value="false">Inactivo</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="categoriaFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha Registro</label>
-                                    <input type="date" id="categoriaFechaRegistro" name="categoriaFechaRegistro" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div class="flex justify-end space-x-3">
-                                    <button type="submit" id="saveCategoryButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        Guardar Categoría
-                                    </button>
-                                    <button type="button" id="cancelCategoryEditButton" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 hidden">
-                                        Cancelar Edición
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Buscador de Categorías -->
-                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Categorías</h3>
-                        <input type="text" id="categorySearchInput" placeholder="Buscar por nombre de categoría..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-
-                    <!-- Tabla de Categorías -->
-                    <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Categorías</h3>
-                        <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="categoriesTableBody" class="bg-white divide-y divide-gray-200">
-                            <!-- Filas de categorías por JS -->
-                        </tbody>
-                    </table>
-                        <div id="noCategoriesMessage" class="text-center text-gray-500 mt-4 hidden">No hay categorías registradas.</div>
-                    </div>
-                </section>
-
-                <!-- Sección de Clientes (CRUD) -->
-                <section id="clientSection" class="content-section">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Clientes</h2>
-
-                    <!-- Botón para abrir modal de creación -->
-                    <div class="flex justify-end mb-4">
-                        <button id="openClientModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <i class="fas fa-plus mr-2"></i>Crear Cliente
-                        </button>
-                    </div>
-
-                    <!-- Modal de creación/edición de cliente -->
-                    <div id="clientModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-                        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md relative">
-                            <button id="closeClientModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4" id="clientFormTitle">Crear Nuevo Cliente</h3>
-                            <form id="clientForm" class="space-y-4">
-                                <div>
-                                    <label for="clienteCedula" class="block text-sm font-medium text-gray-700">Cédula/RUC</label>
-                                    <input type="text" id="clienteCedula" name="clienteCedula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="clienteNombre" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
-                                    <input type="text" id="clienteNombre" name="clienteNombre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="clienteTelefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                    <input type="tel" id="clienteTelefono" name="clienteTelefono" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="clienteDireccion" class="block text-sm font-medium text-gray-700">Dirección</label>
-                                    <input type="text" id="clienteDireccion" name="clienteDireccion" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="clienteCorreo" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                    <input type="email" id="clienteCorreo" name="clienteCorreo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="clienteEstado" class="block text-sm font-medium text-gray-700">Estado</label>
-                                    <select id="clienteEstado" name="clienteEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                        <option value="true">Activo</option>
-                                        <option value="false">Inactivo</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="clienteFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha Registro</label>
-                                    <input type="date" id="clienteFechaRegistro" name="clienteFechaRegistro" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div class="flex justify-end space-x-3">
-                                    <button type="submit" id="saveClientButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        Guardar Cliente
-                                    </button>
-                                    <button type="button" id="cancelClientEditButton" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 hidden">
-                                        Cancelar Edición
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Buscador de Clientes -->
-                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Clientes</h3>
-                        <input type="text" id="clientSearchInput" placeholder="Buscar por cédula, nombre o correo..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-
-                    <!-- Tabla de Clientes -->
-                    <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Clientes</h3>
-                        <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cédula</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre Completo</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Correo</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Dirección</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="clientsTableBody" class="bg-white divide-y divide-gray-200">
-                            <!-- Filas de clientes por JS -->
-                        </tbody>
-                    </table>
-                        <div id="noClientsMessage" class="text-center text-gray-500 mt-4 hidden">No hay clientes registrados.</div>
-                    </div>
-                </section>
-
-                <!-- Sección de Proveedores (CRUD) -->
-                <section id="supplierSection" class="content-section">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Proveedores</h2>
-
-                    <!-- Botón para abrir modal de creación -->
-                    <div class="flex justify-end mb-4">
-                        <button id="openSupplierModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <i class="fas fa-plus mr-2"></i>Crear Proveedor
-                        </button>
-                    </div>
-
-                    <!-- Modal de creación/edición de proveedor -->
-                    <div id="supplierModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-                        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md relative">
-                            <button id="closeSupplierModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4" id="supplierFormTitle">Crear Nuevo Proveedor</h3>
-                            <form id="supplierForm" class="space-y-4">
-                                <div>
-                                    <label for="proveedorCedula" class="block text-sm font-medium text-gray-700">Número de Cédula</label>
-                                    <input type="text" id="proveedorCedula" name="proveedorCedula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="proveedorRazonSocial" class="block text-sm font-medium text-gray-700">Razón Social</label>
-                                    <input type="text" id="proveedorRazonSocial" name="proveedorRazonSocial" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="proveedorCorreo" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                    <input type="email" id="proveedorCorreo" name="proveedorCorreo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="proveedorTelefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                    <input type="tel" id="proveedorTelefono" name="proveedorTelefono" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="proveedorFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha de Registro</label>
-                                    <input type="date" id="proveedorFechaRegistro" name="proveedorFechaRegistro" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                                </div>
-                                <div>
-                                    <label for="proveedorEstado" class="block text-sm font-medium text-gray-700">Estado</label>
-                                    <select id="proveedorEstado" name="proveedorEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                        <option value="true">Activo</option>
-                                        <option value="false">Inactivo</option>
-                                    </select>
-                                </div>
-                                <div class="flex justify-end space-x-3">
-                                    <button type="submit" id="saveSupplierButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        Guardar Proveedor
-                                    </button>
-                                    <button type="button" id="cancelSupplierEditButton" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 hidden">
-                                        Cancelar Edición
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Buscador de Proveedores -->
-                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Proveedores</h3>
-                        <input type="text" id="supplierSearchInput" placeholder="Buscar por cédula, razón social o correo..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-
-                    <!-- Tabla de Proveedores -->
-                    <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Proveedores</h3>
-                        <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cédula</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Razón Social</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Correo</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="suppliersTableBody" class="bg-white divide-y divide-gray-200">
-                            <!-- Filas de proveedores por JS -->
-                        </tbody>
-                    </table>
-                        <div id="noSuppliersMessage" class="text-center text-gray-500 mt-4 hidden">No hay proveedores registrados.</div>
-                    </div>
-                </section>
-
-                <!-- Sección de Negocio (CRUD) -->
-                <div id="businessModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-                    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl relative">
-                        <button id="closeBusinessModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Detalle Negocio</h3>
-                        <form id="businessForm" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-                            <!-- Logo a la izquierda -->
-                            <div class="flex flex-col items-center md:col-span-1">
-                                <label for="businessLogo" class="block text-sm font-medium text-gray-700 mb-2">Logo:</label>
-                                <img id="businessLogoPreview" src="" alt="Logo del negocio" class="border mb-4 w-48 h-48 object-contain bg-gray-100 rounded">
-                                <input type="file" id="businessLogo" name="businessLogo" accept=".jpg,.jpeg,.png" class="mb-2 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                <span class="text-xs text-gray-500">JPG o PNG</span>
-                            </div>
-                            <!-- Campos a la derecha -->
-                            <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="businessName" class="block text-sm font-medium text-gray-700">Nombre Negocio</label>
-                                    <input type="text" id="businessName" name="businessName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                                </div>
-                                <div>
-                                    <label for="businessRUC" class="block text-sm font-medium text-gray-700">RUC</label>
-                                    <input type="text" id="businessRUC" name="businessRUC" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                                </div>
-                                <div>
-                                    <label for="businessTelefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                    <input type="text" id="businessTelefono" name="businessTelefono" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div>
-                                    <label for="businessCiudad" class="block text-sm font-medium text-gray-700">Ciudad</label>
-                                    <input type="text" id="businessCiudad" name="businessCiudad" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label for="businessDireccion" class="block text-sm font-medium text-gray-700">Dirección</label>
-                                    <input type="text" id="businessDireccion" name="businessDireccion" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label for="businessCorreo" class="block text-sm font-medium text-gray-700">Correo</label>
-                                    <input type="email" id="businessCorreo" name="businessCorreo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label for="businessMensajePie" class="block text-sm font-medium text-gray-700">Mensaje al pie de la factura:</label>
-                                    <textarea id="businessMensajePie" name="businessMensajePie" rows="2" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
-                                </div>
-                                <div class="md:col-span-2 flex justify-end space-x-3">
-                                    <button type="submit" id="saveBusinessButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        <i class="fas fa-save mr-2"></i>Guardar Cambios
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
-                <!-- Sección de Productos (CRUD) -->
-                <section id="productSection" class="content-section">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Productos</h2>
-
-                <!-- Botón para descargar Excel -->
-                <div class="flex justify-end mb-4">
-                    <button id="downloadProductsExcel" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                        <i class="fas fa-file-excel mr-2"></i>Descargar Excel
-                    </button>
-                </div>
-                <!-- Botón para abrir modal de creación -->
-                 <div class="flex justify-end mb-4">
-                    <button id="openProductModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        <i class="fas fa-plus mr-2"></i>Crear Producto
-                    </button>
-                </div>
-                <!-- Modal de creación/edición de producto -->
-                <div id="productModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-                    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl relative">
-                        <button id="closeProductModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4" id="productFormTitle">Crear Nuevo Producto</h3>
-                        <form id="productForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="productoCodigo" class="block text-sm font-medium text-gray-700">Código</label>
-                                <input type="text" id="productoCodigo" name="productoCodigo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                            </div>
-                            <div>
-                                <label for="productoNombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-                                <input type="text" id="productoNombre" name="productoNombre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                            </div>
-                            <div>
-                                <label for="productoDescripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-                                <input type="text" id="productoDescripcion" name="productoDescripcion" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                            </div>
-                            <div>
-                                <label for="productoCategoria" class="block text-sm font-medium text-gray-700">Categoría</label>
-                                <select id="productoCategoria" name="productoCategoria" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                                    <!-- Opciones de categorías se llenan por JS -->
-                                </select>
-                            </div>
-                            <div>
-                                <label for="productoStock" class="block text-sm font-medium text-gray-700">Stock</label>
-                                <input type="number" id="productoStock" name="productoStock" min="0" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                            </div>
-                            <div>
-                                <label for="productoPrecioCompra" class="block text-sm font-medium text-gray-700">Precio Compra</label>
-                                <input type="number" step="0.01" id="productoPrecioCompra" name="productoPrecioCompra" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                            </div>
-                            <div>
-                                <label for="productoPrecioVenta" class="block text-sm font-medium text-gray-700">Precio Venta</label>
-                                <input type="number" step="0.01" id="productoPrecioVenta" name="productoPrecioVenta" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                            </div>
-                            <div>
-                                <label for="productoEstado" class="block text-sm font-medium text-gray-700">Estado</label>
-                                <select id="productoEstado" name="productoEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                                    <option value="true">Activo</option>
-                                    <option value="false">Inactivo</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="productoFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha Registro</label>
-                                <input type="date" id="productoFechaRegistro" name="productoFechaRegistro" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                            </div>
-                            <div class="md:col-span-2 flex justify-end space-x-3">
-                                <button type="submit" id="saveProductButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                    Guardar Producto
-                                </button>
-                                <button type="button" id="cancelProductEditButton" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 hidden">
-                                    Cancelar Edición
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Tabla de Productos -->
-                <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Productos</h3>
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoría</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Precio Compra</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Precio Venta</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="productsTableBody" class="bg-white divide-y divide-gray-200">
-                            <!-- Filas de productos por JS -->
-                        </tbody>
-                    </table>
-                    <div id="noProductsMessage" class="text-center text-gray-500 mt-4 hidden">No hay productos registrados.</div>
-                </div>
-            </section>
-            </main>
-        </div>
+    <div>
+      <label for="businessRUC" class="block text-sm font-medium text-gray-700">RUC</label>
+      <input type="text" id="businessRUC" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
     </div>
 
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-    <script src="js/main.js"></script>
+    <div>
+      <label for="businessDireccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+      <input type="text" id="businessDireccion" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+    </div>
+
+    <div>
+      <label for="businessTelefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+      <input type="text" id="businessTelefono" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+    </div>
+
+    <div>
+      <label for="businessCorreo" class="block text-sm font-medium text-gray-700">Correo</label>
+      <input type="email" id="businessCorreo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+    </div>
+
+    <div>
+      <label for="businessCiudad" class="block text-sm font-medium text-gray-700">Ciudad</label>
+      <input type="text" id="businessCiudad" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+    </div>
+
+    <div>
+      <label for="businessMensajePie" class="block text-sm font-medium text-gray-700">Mensaje en Pie de Página</label>
+      <input type="text" id="businessMensajePie" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+    </div>
+
+    <div>
+      <label for="businessLogo" class="block text-sm font-medium text-gray-700">Logo del Negocio</label>
+      <input type="file" id="businessLogo" accept="image/png, image/jpeg" class="mt-1 block w-full">
+      <img id="businessLogoPreview" src="img/logo.png" alt="Vista previa del logo" class="mt-2 h-24 object-contain border rounded">
+    </div>
+
+    <div>
+      <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+        Guardar Configuración
+      </button>
+    </div>
+  </form>
+</section>
+
+<!-- Ventas -->
+<!-- Sección de Ventas -->
+<section id="ventasSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Registrar Venta</h2>
+
+  <!-- Buscar Cliente -->
+  <div class="mb-6">
+    <button id="searchClientBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      <i class="fas fa-search mr-2"></i>Buscar Cliente
+    </button>
+    <input type="text" id="clientDoc" placeholder="Cédula del cliente" class="mt-2 w-full border px-2 py-1" readonly />
+    <input type="text" id="clientName" placeholder="Nombre del cliente" class="mt-2 w-full border px-2 py-1" readonly />
+  </div>
+
+  <!-- Buscar Producto -->
+  <div class="mb-6">
+    <button id="searchProductBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+      <i class="fas fa-search mr-2"></i>Buscar Producto
+    </button>
+    <input type="text" id="saleProductCode" placeholder="Código del producto" class="mt-2 w-full border px-2 py-1" readonly />
+    <input type="text" id="saleProductName" placeholder="Nombre del producto" class="mt-2 w-full border px-2 py-1" readonly />
+    <input type="number" id="saleProductQuantity" placeholder="Cantidad" value="1" min="1" class="mt-2 w-full border px-2 py-1" />
+    <button id="addSaleProductBtn" class="bg-purple-600 text-white px-4 py-2 mt-2 rounded hover:bg-purple-700">
+      <i class="fas fa-plus mr-2"></i>Agregar Producto
+    </button>
+  </div>
+
+  <!-- Tabla de Productos Vendidos -->
+  <div class="bg-white p-4 rounded-lg shadow-md mb-6 overflow-x-auto">
+    <h3 class="text-lg font-semibold text-gray-700 mb-3">Productos en la Venta</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
+          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Cantidad</th>
+          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Precio</th>
+          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Subtotal</th>
+          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="salesTableBody" class="bg-white divide-y divide-gray-200">
+        <!-- Filas generadas dinámicamente -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Total y Botón Guardar -->
+  <div class="flex justify-between items-center">
+    <h3 class="text-lg font-semibold text-gray-700">Total: <span id="totalSaleAmount">$0.00</span></h3>
+    <button id="saveSaleBtn" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800">
+      <i class="fas fa-save mr-2"></i>Registrar Venta
+    </button>
+  </div>
+</section>
+
+<!-- COMPRAS -->
+<section id="comprasSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Registrar Compras</h2>
+
+  <!-- Formulario de Compra -->
+  <form id="compraForm" class="space-y-4 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label for="compraProveedor" class="block text-sm font-medium text-gray-700">Proveedor</label>
+        <select id="compraProveedor" class="mt-1 block w-full border rounded px-3 py-2" required></select>
+      </div>
+
+      <div>
+        <label for="compraFecha" class="block text-sm font-medium text-gray-700">Fecha de Compra</label>
+        <input type="date" id="compraFecha" class="mt-1 block w-full border rounded px-3 py-2">
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <!-- Productos -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label for="compraProducto" class="block text-sm font-medium text-gray-700">Producto</label>
+        <select id="compraProducto" class="mt-1 block w-full border rounded px-3 py-2"></select>
+      </div>
+
+      <div>
+        <label for="compraCantidad" class="block text-sm font-medium text-gray-700">Cantidad</label>
+        <input type="number" id="compraCantidad" min="1" class="mt-1 block w-full border rounded px-3 py-2" placeholder="Ingrese cantidad">
+      </div>
+
+      <div class="flex items-end">
+        <button type="button" id="compraAgregarBtn" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Agregar Producto
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Tabla de Carrito -->
+  <div class="overflow-x-auto mb-6">
+    <table class="min-w-full border text-sm text-left">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2">Código</th>
+          <th class="px-4 py-2">Nombre</th>
+          <th class="px-4 py-2">Cantidad</th>
+          <th class="px-4 py-2">Precio Compra</th>
+          <th class="px-4 py-2">Subtotal</th>
+          <th class="px-4 py-2">Acción</th>
+        </tr>
+      </thead>
+      <tbody id="compraItemsBody" class="divide-y divide-gray-100">
+        <!-- Items dinámicos -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Total y botón registrar -->
+  <div class="flex justify-between items-center">
+    <div class="text-lg font-semibold">Total: <span id="compraTotal">$0.00</span></div>
+    <button id="registrarCompraBtn" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
+      Registrar Compra
+    </button>
+  </div>
+</section>
+
+
+
+
+<!-- REPORTES -->
+<section id="reportesSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Reportes del Sistema</h2>
+
+  <!-- Filtros -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div>
+      <label for="reporteTipo" class="block text-sm font-medium text-gray-700">Tipo de Reporte</label>
+      <select id="reporteTipo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+        <option value="ventas">Ventas</option>
+        <option value="compras">Compras</option>
+        <option value="productos-mas-vendidos">Productos más vendidos</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="reporteFechaInicio" class="block text-sm font-medium text-gray-700">Fecha Inicio</label>
+      <input type="date" id="reporteFechaInicio" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+    </div>
+
+    <div>
+      <label for="reporteFechaFin" class="block text-sm font-medium text-gray-700">Fecha Fin</label>
+      <input type="date" id="reporteFechaFin" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+    </div>
+
+    <div class="flex items-end">
+      <button id="generarReporteBtn" class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+        Generar Reporte
+      </button>
+    </div>
+  </div>
+
+  <!-- Título del Reporte -->
+  <h3 id="reporteTitulo" class="text-lg font-semibold text-gray-700 mb-4"></h3>
+
+  <!-- Tabla de Resultados -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 border text-sm text-left">
+      <thead class="bg-gray-100">
+        <tr id="reporteEncabezado">
+          <!-- Encabezado dinámico según tipo de reporte -->
+          <th class="px-4 py-2">ID / Código</th>
+          <th class="px-4 py-2">Cliente / Proveedor / Nombre</th>
+          <th class="px-4 py-2">Fecha / Cantidad</th>
+          <th class="px-4 py-2">Total</th>
+        </tr>
+      </thead>
+      <tbody id="reporteTablaBody" class="divide-y divide-gray-100">
+        <!-- Filas dinámicas -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+
+
+
+<!-- Roles -->
+<section id="rolesSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Roles</h2>
+
+  <!-- Botón para abrir modal de creación -->
+  <div class="flex justify-end mb-4">
+    <button id="openRoleModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      <i class="fas fa-plus mr-2"></i>Crear Rol
+    </button>
+  </div>
+
+  <!-- Modal de creación/edición de rol -->
+  <div id="roleModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md relative">
+      <button id="closeRoleModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+      <h3 class="text-xl font-semibold text-gray-800 mb-4" id="roleFormTitle">Crear Nuevo Rol</h3>
+      <form id="roleForm" class="space-y-4">
+        <div>
+          <label for="roleName" class="block text-sm font-medium text-gray-700">Nombre del Rol</label>
+          <input type="text" id="roleName" name="roleName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div class="flex justify-end">
+          <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Guardar Rol</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabla de roles -->
+  <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Roles</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="rolesTableBody" class="bg-white divide-y divide-gray-200">
+        <!-- Filas dinámicas por JS -->
+      </tbody>
+    </table>
+    <div id="noRolesMessage" class="text-center text-gray-500 mt-4 hidden">No hay roles registrados.</div>
+  </div>
+</section>
+
+
+<!-- GESTIÓN DE PERMISOS -->
+<section id="permisosSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Permisos por Rol</h2>
+
+  <!-- Select de roles -->
+  <div class="mb-4">
+    <label for="permisosRol" class="block text-sm font-medium text-gray-700 mb-1">Seleccione un rol:</label>
+    <select id="permisosRol" class="w-full px-4 py-2 border border-gray-300 rounded-md">
+      <!-- Opciones cargadas dinámicamente -->
+    </select>
+  </div>
+
+  <!-- Checkboxes de permisos -->
+  <form id="permisosFormulario" class="mb-4">
+    <!-- Generados dinámicamente -->
+  </form>
+
+  <!-- Botón de guardar -->
+  <div>
+    <button id="guardarPermisosBtn" disabled
+      class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      Guardar Permisos
+    </button>
+  </div>
+</section>
+
+<!-- PROVEEDORES -->
+<section id="proveedoresSection" class="content-section hidden">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Proveedores</h2>
+
+  <!-- Botón para abrir modal -->
+  <div class="flex justify-end mb-4">
+    <button id="openSupplierModal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+      <i class="fas fa-plus mr-2"></i>Nuevo Proveedor
+    </button>
+  </div>
+
+  <!-- Modal de creación/edición -->
+  <div id="supplierModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button id="closeSupplierModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+      <h3 class="text-xl font-semibold text-gray-800 mb-4" id="supplierFormTitle">Crear Nuevo Proveedor</h3>
+      <form id="supplierForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="proveedorCedula" class="block text-sm font-medium text-gray-700">Cédula</label>
+          <input id="proveedorCedula" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div>
+          <label for="proveedorRazonSocial" class="block text-sm font-medium text-gray-700">Razón Social</label>
+          <input id="proveedorRazonSocial" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div>
+          <label for="proveedorCorreo" class="block text-sm font-medium text-gray-700">Correo</label>
+          <input id="proveedorCorreo" type="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label for="proveedorTelefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+          <input id="proveedorTelefono" type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div>
+          <label for="proveedorEstado" class="block text-sm font-medium text-gray-700">Estado</label>
+          <select id="proveedorEstado" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
+        </div>
+        <div>
+          <label for="proveedorFechaRegistro" class="block text-sm font-medium text-gray-700">Fecha Registro</label>
+          <input id="proveedorFechaRegistro" type="date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="md:col-span-2 flex justify-end space-x-3">
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Guardar</button>
+          <button id="cancelSupplierEditButton" type="button" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 hidden">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Buscar Proveedores</h3>
+    <input id="supplierSearchInput" type="text" placeholder="Buscar por cédula, razón social o correo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+  </div>
+
+  <!-- Tabla de proveedores -->
+  <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Listado de Proveedores</h3>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cédula</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Razón Social</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Correo</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha Registro</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="suppliersTableBody" class="bg-white divide-y divide-gray-200">
+        <!-- Filas dinámicas -->
+      </tbody>
+    </table>
+    <div id="noSuppliersMessage" class="text-center text-gray-500 mt-4 hidden">No hay proveedores registrados.</div>
+  </div>
+</section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JS principal -->
+  <script  src="js/main.js"></script>
+<script src="js/db.js"></script>
+
+
+  <script>
+
+  // Navegación entre secciones del dashboard
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('aside [data-section]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.content-section').forEach(sec => sec.classList.add('hidden'));
+        const sectionId = btn.getAttribute('data-section');
+        const section = document.getElementById(sectionId.replace('Section', '') + 'Section') || document.getElementById(sectionId);
+        if (section) section.classList.remove('hidden');
+      });
+    });
+  });
+</script>
 </body>
 </html>
